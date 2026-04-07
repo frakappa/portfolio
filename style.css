@@ -1,13 +1,14 @@
 /*
-La palette di colori scelta è: https://github.com/morhetz/gruvbox?tab=readme-ov-file
+La palette di colori scelta è: https://github.com/morhetz/gruvbox
+(La versione light.)
 */
 
 :root {
-    --bg: #282828;
-    --fg: #ebdbb2;
-    --fg0: #fbf1c7;
+    --bg: #fbf1c7;
+    --fg: #3c3636;
+    --fg0: #282828;
     --gray: #928374;
-    --blue: #83a598;
+    --blue: #458588;
     --yellow: #d79921;
     --green: #98971a;
 }
@@ -39,7 +40,7 @@ impostiamo `flex-shrink` a `0` per `header` e `footer` per fare in modo che non 
 dimensione più del necessario. In questo modo il `footer` sarà sul fondo anche se non c'è abbastanza
 contenuto per riempire la pagina.
 
-Fonte: https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook/Sticky_footers#alternate_method
+https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook/Sticky_footers#alternate_method
 */
 
 html,
@@ -69,12 +70,26 @@ main {
     padding-bottom: 0;
 }
 
+body {
+    max-width: 650px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    border-top: 1px solid var(--gray);
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
 /*
 L'idea è di far sembrare la pagina corrente come un path del filesystem e poter navigare il sito web
 di conseguenza. Suddividiamo il path in segmenti, rendendo ognuno cliccabile, e inseriamo degli
 slash fra i vari segmenti.
 
-Fonte: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav
+https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav
 */
 
 .path {
@@ -127,40 +142,19 @@ da cui il nome.)
 
 @media (max-width: 700px) {
     .ls>li {
+        /* Su schermi più piccoli, mostriamo al più due "file" per riga */
         min-width: 50%;
     }
 }
 
-
 /*
-650px sembra essere una grandezza più o meno standard per il contenuto di una pagina web: rende il
-layout consisent fra mobile e desktop ed evita che il contenuto si espanda troppo in larghezza
-lasciando spazio vuoto verticalmente.
-*/
+Un'animazione che rappresenta il comando che viene scritto.
 
-body {
-    max-width: 650px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-}
-
-/*
-Il `footer` è minimale, ed ha un sottile separatore dal resto della pagina.
-*/
-
-footer {
-    border-top: 1px solid var(--gray);
-    margin-top: 1em;
-    display: flex;
-    justify-content: space-between;
-}
-
-/*
-Fonte: http://css-tricks.com/snippets/css/typewriter-effect/
+http://css-tricks.com/snippets/css/typewriter-effect/
 */
 
 .typewriter {
+    /* Fa in modo che il div non si espanda in larghezza ma rispetti quella del contenuto (importante per l'animazione) */
     display: inline-block;
 }
 
@@ -201,6 +195,10 @@ Fonte: http://css-tricks.com/snippets/css/typewriter-effect/
     }
 }
 
+.prompt {
+    color: var(--green);
+}
+
 /*
 L'idea è di simulare l'output di un comando da terminale che mostra le mie info, l'animazione deve
 partire appena ha finito di digitare il comando (per questo il delay).
@@ -210,16 +208,6 @@ partire appena ha finito di digitare il comando (per questo il delay).
     opacity: 0;
     animation: output 0.6s ease forwards;
     animation-delay: 1.5s;
-}
-
-.manpage pre {
-    /* Per la home page vogliamo andare a capo se non c'è abbastanza spazio */
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-.manpage .section {
-    color: var(--yellow);
 }
 
 @keyframes output {
@@ -232,10 +220,21 @@ partire appena ha finito di digitare il comando (per questo il delay).
     }
 }
 
+.manpage pre {
+    /* Per la home page vogliamo andare a capo se non c'è abbastanza spazio */
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.manpage .section {
+    color: var(--yellow);
+}
+
 /*
 Questa parte è lo stile della pagina dei contatti.
 
-Utilizziamo `nth-child` con `odd` e `even` per alternare lo stile senza richiedere ripetizioni.
+Utilizziamo `nth-child` con `odd` e `even` per alternare lo stile senza dever specificare la classe
+per ognuno.
 */
 
 .contact {
@@ -299,6 +298,7 @@ Ancora una volta alterniamo allineamento a sinistra e a destra.
 
 @media (max-width: 700px) {
     .project {
+        /* Su schermi più piccoli mostriamo le immagini e il testo in colonna */
         flex-direction: column;
         align-items: stretch;
     }
