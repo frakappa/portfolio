@@ -107,7 +107,85 @@ for _ in range(t):
                 is no such array.
             </q>
         </p>
-        <p>TODO</p>
+        <p>
+            It's helpful to start by considering some simple cases. For example, suppose that \( a \) is increasing,
+            what is the number of increasing subsequences? Since every subsequence is going to be increasing (by
+            definition we cannot change the order of the elements in a subsequence), the number of increasing
+            subsequences is going to be exactly the number of subsequences. For an array \( a \) of length \( n \),
+            there are exactly \( 2^n \) subsequences. (Think of a subsequence as a subset of indices, the set of all
+            subsequences is going to be the powerset of the set of indices, and since the set of indices has cardinality
+            \( n \), the set of subsequences is going to have cardinality \( 2^n \).)
+        </p>
+        <p>
+            This already gives us a good starting point: we can start constructing our sequence by picking the largest
+            power of two smaller than or equal to \( X \) and then try to satisfy our condition by adding some elements
+            at the end of it. So, what happens when we add a new element at the end of our increasing subsequence? The
+            answer strictly depends on the number of smaller elements to its left. Say there are \( k \) smaller
+            elements to its left (clearly \( 0 \leq k \leq n \)), the new element will form a new increasing subsequence
+            for each increasing subsequence involving any number of these \( k \) elements, and there are exactly \(
+            2^k \) such sequences.
+        </p>
+        <p>
+            This is great, at each step we can just add a new element to our sequence and, if we can control how many
+            smaller elements in increasing order there are to its left, we can simply build \( X \) as sums of powers of
+            two: its binary representation! We can make sure that we don't mess up the count of smaller elements in
+            increasing order by making sure that every new number we add is smaller than the previous.
+        </p>
+        <p>
+            A clean implementation takes advantage of the binary representation of \( X \): we start from the most
+            significant bit and add each element starting from \( 0 \) and going up to the index of the MSB, then we
+            traverse the remaining set bits from the most to the least significant adding their index to the sequence.
+        </p>
+        <p>
+            As a more concrete example consider \( X = 13 = 2^3 + 2^2 + 2^0 = (1101)_2 \). Notice that the bits at
+            indices \( 3 \), \( 2 \), and \( 0 \) are set. We start from the most significant bit (index \( 3 \)) and
+            add the numbers from \( 0 \) to \( 3 - 1 = 2 \), creating an increasing subsequence of length \( 3 \). Now
+            \( a = [0, 1, 2] \). Then we add the indeces of the remaining set bits in decreasing order. So \( a = [0, 1,
+            2, 2, 0] \). Notice that, by the way we constructed the initial sequence, simply adding the number \( k \)
+            at the end ensures that there are exactly \( k \) smaller elements to its left, and because we add elements
+            in decreasing order, this is always true.
+        </p>
+        <p>
+            So here is my implementation (this time in C++):
+        </p>
+        <pre><code>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+
+	int t;
+	cin >> t;
+
+	while (t--) {
+		ll X;
+		cin >> X;
+
+		vector<int> ans;
+
+		ll msb = 63 - __builtin_clzll(X);
+		for (int i = 0; i < msb; i++) {
+			ans.push_back(i);
+		}
+		for (int i = msb - 1; i >= 0; i--) {
+			if ((X >> i) & 1) {
+				ans.push_back(i);
+			}
+		}
+
+		cout << ans.size() << "\n";
+		for (auto x : ans) {
+			cout << x << " ";
+		}
+		cout << "\n";
+	}
+}
+        </code></pre>
     </main>
 
     <footer>
