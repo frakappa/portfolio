@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Utilizziamo MathJax per mostare la notazione matematica -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <title>Two Fun Constructive Problems</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ol class="path">
+                <li><a href="/">~</a></li>
+                <li><a href="/blog/">blog</a></li>
+                <li>constructives.html</li>
+            </ol>
+            <ol class="ls">
+                <li><a href="./">..</a></li>
+            </ol>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Two Fun Constructive Problems</h1>
+        <p><time datetime="2026-04-01">April 1, 2026</time></p>
+        <hr>
+        <p>
+            I generally don't enjoy constructive problems, but recently I solved two that were surprisingly satisfying.
+            My solution turned out quite different from the one proposed in the editorial, so I wanted to share my
+            thought process.
+        </p>
+        <p>
+            Both problems are quite straightforward (the first one being rated \( 1500 \), the second one \( 1800 \))
+            and have short implementations.
+        </p>
+        <h2>Even-Odd XOR</h2>
+        <a href="https://codeforces.com/problemset/problem/1722/G">Link to the problem</a>
+        <p>
+            <q>
+                Given an integer \( n \), find any array \( a \) of \(n \) distinct nonnegative
+                integers less than \( 2^{31} \) such that the bitwise XOR of the elements on odd indices equals the
+                bitwise XOR of the elements on even indices.
+            </q>
+        </p>
+        <p>
+            Let's kick off with some observations. As it's very frequent with this kind of questions involving bitwise
+            operations, it helps to reason bit-by-bit. In particular, the bitwise XOR of the elements on odd indices
+            equals the bitwise XOR of the elements on even indices if and only if the corresponding bits match.
+        </p>
+        <p>
+            But what does the XOR of a single bit across multiple elements represent? The parity of that bit! More
+            specifically: if the bit is set to \( 1 \) an even number of times, the XOR is \( 0 \); if the bit is set to
+            \( 1 \) an odd number of times, the XOR is \( 1 \). (\( 0 \)s are going to have no effect on the XOR, while
+            pairs of \( 1 \)s are going to cancel out.) Therefore, for any given bit position (there are \( 31 \) such
+            positions, since we are working with nonnegative integers less than \( 2^{31} \)), the count of \( 1 \)s
+            must have the same parity in both the even and odd positions.
+        </p>
+        <p>
+            This condition doesn't seem very restrictive. In fact, flipping a single bit on one element is sufficient to
+            make the parity match, and it doesn't matter whether that element sits at an even or odd position. In
+            theory, we could just generate \( n - 1 \) distinct elements, using the final one to satisfy the XOR
+            condition: we just need to ensure that it won't already be present in the sequence.
+        </p>
+        <p>
+            The solution is surprisingly simple: randomness! If we randomly generate \( n - 1 \) distinct
+            elements, the likelihood that the final one will already be in the sequence is \( (n - 1) / 2^{31} \)
+            which, even in the worst case scenario (for \( n = 2 \cdot 10^5 \)), is going to be significantly less
+            than \( 1\% \). (And if we do hit this unfortunate case, we can just try again.)
+        </p>
+        <p>
+            This leads to a very compact solution. Here is my implementation (I typically use C++, but when it comes to
+            RNG I find Python's <code>random</code> module to be much more convinient):
+        </p>
+        <pre>
+            <code>
+import random
+
+t = int(input())
+for _ in range(t):
+    n = int(input())
+    while True:
+        a = random.sample(range(0, 2 ** 31), n - 1)
+        xor = 0
+        for i in range(n - 1):
+            xor ^= a[i]
+        if xor not in a:
+            a.append(xor)
+            print(" ".join(map(str, a)))
+            break
+            </code>
+        </pre>
+        <h2>Increasing Subsequences</h2>
+        <a href="https://codeforces.com/problemset/problem/1922/E">Link to the problem</a>
+        <p>
+            <q>
+                You are given a positive integer \( X \). Your task is to find an array of integers of length
+                <b>at most</b> \( 200 \), such that it has exactly \( X \) increasing subsequences, or report that there
+                is no such array.
+            </q>
+        </p>
+        <p>TODO</p>
+    </main>
+
+    <footer>
+        <span>© Francesco Cappetti</span>
+        <span>
+            <a href="/projects.html">Projects</a> ·
+            <a href="/contacts.html">Contacts</a> ·
+            <a href="/blog/">Blog</a>
+        </span>
+    </footer>
+</body>
+
+</html>

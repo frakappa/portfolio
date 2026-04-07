@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <title>Projects</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ol class="path">
+                <li><a href="/">~</a></li>
+                <li>projects.html</li>
+            </ol>
+            <ol class="ls">
+                <li><a href="./">..</a></li>
+            </ol>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Projects</h1>
+        <hr>
+        <p>Here are some projects that I've worked on.</p>
+        <br>
+        <article class="project">
+            <img src="assets/goodmorningtech.png" alt="goodmorningtech">
+            <div>
+                <h2><a href="https://goodmorningtech.news/">goodmorningtech</a></h2>
+                A customizable and open-source newsletter tailored to developers and tech enthusiasts. I worked on
+                the backend alongside three other developers.
+            </div>
+        </article>
+        <hr>
+        <article class="project">
+            <div>
+                <h2><a href="https://dwrensha.github.io/compfiles/">compfiles</a></h2>
+                This repository collects olympiad-style math problems and their solutions, formalized in Lean 4. I
+                contributed the formalization of two problems so far (with more in progress):
+                <a href="https://dwrensha.github.io/compfiles/problems/Compfiles.Imo2011P5.html">Imo2011P5</a> and
+                <a href="https://dwrensha.github.io/compfiles/problems/Compfiles.Imo1971P1.html">Imo1971P1</a>.
+            </div>
+            <img src="assets/compfiles.png" alt="compfiles">
+        </article>
+        <hr>
+        <article class="project">
+            <img src="assets/codewars-cli.png" alt="codewars-cli">
+            <div>
+                <h2><a href="https://pypi.org/project/codewars-cli/">codewars-cli</a></h2>
+                A CLI for Codewars. It allows to test, run, and submit solution from your terminal. This required me
+                to reverse-engineer the submission process, it was an incredibly fun project!
+            </div>
+        </article>
+        <hr>
+        <article class="project">
+            <div>
+                <h2><a href="https://github.com/kappq/pathfinding-visualizer">pathfinding-visualizer</a></h2>
+                A simple visualizer for pathfinding (and maze-generation) algorithms, built with Python and Pygame.
+                It features an interactive user interface that allows you to modify the maze and run a selection of
+                algorithms.
+            </div>
+            <img src="assets/pathfinding-visualizer.png" alt="pathfinding-visualizer">
+        </article>
+        <hr>
+        <article class="project">
+            <img src="assets/sorting-visualizer.png" alt="sorting-visualizer">
+            <div>
+                <h2><a href="https://kappq.github.io/sorting-visualizer/">sorting-visualizer</a></h2>
+                A simple sorting visualizer. It's built with Rust and Leptos and runs in the browser via
+                WebAssembly. It's still quite unpolished, but it was a great opportunity to get more familiar with
+                Rust and WebAssembly.
+            </div>
+        </article>
+        <hr>
+        <article class="project">
+            <div>
+                <h2><a href="https://github.com/frakappa/aoc">aoc</a></h2>
+                This year I finally completed all the Advent of Code problems. This repository contains solutions to
+                every challenge, written in Gleam.
+            </div>
+            <img src="assets/aoc.png" alt="aoc">
+        </article>
+        <hr>
+        <article class="project">
+            <img src="assets/pebble.png" alt="pebble">
+            <div>
+                <h2><a href="https://github.com/frakappa/pebble">pebble</a></h2>
+                A parser combinator library written in Gleam. I didn't end up publishing this one to Hex, but it was
+                a great way to get more comfortable with functional programming.
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <span>© Francesco Cappetti</span>
+        <span>
+            <a href="/projects.html">Projects</a> ·
+            <a href="/contacts.html">Contacts</a> ·
+            <a href="/blog/">Blog</a>
+        </span>
+    </footer>
+</body>
+
+</html>

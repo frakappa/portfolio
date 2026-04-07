@@ -1,0 +1,300 @@
+/*
+La palette di colori è stata generata utilizzando Coolors: https://coolors.co/1c1c1c-3a7ca5-d6d3ce-fffffb
+*/
+
+:root {
+    background-color: #fffffb;
+    color: #1c1c1c;
+    font-family: "Lora", sans-serif;
+}
+
+a {
+    color: #3a7ca5;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #d6d3ce;
+}
+
+code {
+    font-family: "IBM Plex Mono", monospace;
+}
+
+/*
+Impostiamo `flex-grow` a `1` per `main` per fare in modo che si espanda il più possibile, ma
+impostiamo `flex-shrink` a `0` per `header` e `footer` per fare in modo che non riducano la loro
+dimensione più del necessario. In questo modo il `footer` sarà sul fondo anche se non c'è abbastanza
+contenuto per riempire la pagina.
+
+Fonte: https://developer.mozilla.org/en-US/docs/Web/CSS/How_to/Layout_cookbook/Sticky_footers#alternate_method
+*/
+
+html,
+body {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+header,
+footer {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+main {
+    flex-grow: 1;
+}
+
+header,
+main,
+footer {
+    padding: 1em;
+}
+
+main {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/*
+L'idea è di far sembrare la pagina corrente come un path del filesystem e poter navigare il sito web
+di conseguenza. Suddividiamo il path in segmenti, rendendo ognuno cliccabile, e inseriamo degli
+slash fra i vari segmenti.
+
+Fonte: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav
+*/
+
+.path {
+    list-style-type: none;
+    padding-left: 0;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: x-large;
+}
+
+.path>li {
+    display: inline-block;
+}
+
+.path>li>a {
+    color: #1c1c1c;
+}
+
+.path>li>a::after {
+    display: inline-block;
+    color: #1c1c1c;
+    /* Aggiunge uno slash dopo ogni segmento del percorso */
+    content: "/";
+    padding-left: 1ch;
+}
+
+/*
+Rimanendo sul tema del path da terminale, segue la lista di tutti i "file" (che in questo caso sono
+pagine web) accessibili a partire dalla directory corrente. (Come quando si esegue il comando `ls`,
+da cui il nome.)
+*/
+
+.ls {
+    list-style-type: none;
+    padding-left: 0;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: small;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ls>li {
+    /* Mostriamo al più quattro "file" per riga */
+    min-width: 25%;
+}
+
+.ls>li>a {
+    color: #1c1c1c;
+}
+
+@media (max-width: 700px) {
+    .ls>li {
+        min-width: 50%;
+    }
+}
+
+
+/*
+650px sembra essere una grandezza più o meno standard per il contenuto di una pagina web: rende il
+layout consisent fra mobile e desktop ed evita che il contenuto si espanda troppo in larghezza
+lasciando spazio vuoto verticalmente.
+*/
+
+body {
+    max-width: 650px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/*
+Il `footer` è minimale, ed ha un sottile separatore dal resto della pagina.
+*/
+
+footer {
+    border-top: 1px solid #d6d3ce;
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+/*
+Fonte: http://css-tricks.com/snippets/css/typewriter-effect/
+*/
+
+.typewriter {
+    display: inline-block;
+}
+
+.typewriter h1 {
+    overflow: hidden;
+    /* Il cursore ha dimensione di un carattere per ricordare quello di un terminale */
+    border-right: 1ch solid #1c1c1c;
+    white-space: nowrap;
+    margin: 0;
+    font-family: "IBM Plex Mono", monospace;
+    animation:
+        /* Abbiamo uno step per carattere da scrivere e uno step finale per il cursore */
+        typing 1.5s steps(7, end),
+        blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        /* Salta i primi due caratteri: il maggiore e lo spazio che rappresentano il prompt */
+        width: 2ch;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: #1c1c1c;
+    }
+}
+
+/*
+L'idea è di simulare l'output di un comando da terminale che mostra le mie info, l'animazione deve
+partire appena ha finito di digitare il comando.
+*/
+
+.manpage {
+    opacity: 0;
+    animation: output 0.6s ease forwards;
+    animation-delay: 1.5s;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.manpage pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+@keyframes output {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/*
+Questa parte è lo stile della pagina dei contatti.
+
+Utilizziamo `nth-child` con `odd` e `even` per alternare lo stile senza richiedere ripetizioni.
+*/
+
+.contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact h2 {
+    font-size: medium;
+}
+
+.contact a {
+    font-size: x-large;
+}
+
+.contact svg {
+    width: 64px;
+}
+
+.contact div:nth-child(odd) {
+    text-align: left;
+}
+
+.contact div:nth-child(even) {
+    text-align: right;
+}
+
+/*
+Questa parte è lo stile della pagina dei progetti.
+
+Ancora una volta alterniamo allineamento a sinistra e a destra.
+*/
+
+.project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project img {
+    flex-shrink: 0;
+    width: 50%;
+}
+
+.project div {
+    padding: 1em;
+}
+
+.project h2 {
+    margin: 0.2em 0;
+}
+
+.project div:nth-child(odd) {
+    text-align: right;
+}
+
+.project div:nth-child(even) {
+    text-align: left;
+}
+
+@media (max-width: 700px) {
+    .project {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .project img {
+        width: 100%;
+    }
+}
+
+/*
+Permette di scorrere orizzontalmente i lunghi blocchi di codice.
+*/
+
+pre {
+    overflow-x: auto;
+}
