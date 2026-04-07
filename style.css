@@ -1,21 +1,32 @@
 /*
-La palette di colori è stata generata utilizzando Coolors: https://coolors.co/1c1c1c-3a7ca5-d6d3ce-fffffb
+La palette di colori scelta è: https://github.com/morhetz/gruvbox?tab=readme-ov-file
 */
 
 :root {
-    background-color: #fffffb;
-    color: #1c1c1c;
+    --bg: #282828;
+    --fg: #ebdbb2;
+    --fg0: #fbf1c7;
+    --gray: #928374;
+    --blue: #83a598;
+    --yellow: #d79921;
+    --green: #98971a;
+}
+
+html,
+body {
+    background-color: var(--bg);
+    color: var(--fg);
     font-family: "Lora", sans-serif;
 }
 
 a {
-    color: #3a7ca5;
+    color: var(--blue);
 }
 
 hr {
     border: none;
     height: 1px;
-    background-color: #d6d3ce;
+    background-color: var(--gray);
 }
 
 code {
@@ -75,15 +86,16 @@ Fonte: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav
 
 .path>li {
     display: inline-block;
+    color: var(--fg0);
 }
 
 .path>li>a {
-    color: #1c1c1c;
+    color: var(--fg0);
 }
 
 .path>li>a::after {
     display: inline-block;
-    color: #1c1c1c;
+    color: var(--gray);
     /* Aggiunge uno slash dopo ogni segmento del percorso */
     content: "/";
     padding-left: 1ch;
@@ -110,7 +122,7 @@ da cui il nome.)
 }
 
 .ls>li>a {
-    color: #1c1c1c;
+    color: var(--fg0);
 }
 
 @media (max-width: 700px) {
@@ -138,7 +150,7 @@ Il `footer` è minimale, ed ha un sottile separatore dal resto della pagina.
 */
 
 footer {
-    border-top: 1px solid #d6d3ce;
+    border-top: 1px solid var(--gray);
     margin-top: 1em;
     display: flex;
     justify-content: space-between;
@@ -155,13 +167,14 @@ Fonte: http://css-tricks.com/snippets/css/typewriter-effect/
 .typewriter h1 {
     overflow: hidden;
     /* Il cursore ha dimensione di un carattere per ricordare quello di un terminale */
-    border-right: 1ch solid #1c1c1c;
+    border-right: 1ch solid var(--fg);
     white-space: nowrap;
     margin: 0;
+    color: var(--fg);
     font-family: "IBM Plex Mono", monospace;
     animation:
         /* Abbiamo uno step per carattere da scrivere e uno step finale per il cursore */
-        typing 1.5s steps(7, end),
+        typing 1.5s steps(6, end),
         blink-caret 0.75s step-end infinite;
 }
 
@@ -184,25 +197,29 @@ Fonte: http://css-tricks.com/snippets/css/typewriter-effect/
     }
 
     50% {
-        border-color: #1c1c1c;
+        border-color: var(--fg);
     }
 }
 
 /*
 L'idea è di simulare l'output di un comando da terminale che mostra le mie info, l'animazione deve
-partire appena ha finito di digitare il comando.
+partire appena ha finito di digitare il comando (per questo il delay).
 */
 
 .manpage {
     opacity: 0;
     animation: output 0.6s ease forwards;
     animation-delay: 1.5s;
-    font-family: 'JetBrains Mono', monospace;
 }
 
 .manpage pre {
+    /* Per la home page vogliamo andare a capo se non c'è abbastanza spazio */
     white-space: pre-wrap;
     word-break: break-word;
+}
+
+.manpage .section {
+    color: var(--yellow);
 }
 
 @keyframes output {
