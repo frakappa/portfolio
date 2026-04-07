@@ -278,6 +278,8 @@ Ancora una volta alterniamo allineamento a sinistra e a destra.
 .project img {
     flex-shrink: 0;
     width: 50%;
+    box-sizing: border-box;
+    border: 1px solid var(--gray);
 }
 
 .project div {
